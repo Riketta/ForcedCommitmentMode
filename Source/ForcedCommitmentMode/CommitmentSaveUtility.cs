@@ -1,5 +1,6 @@
 using System;
 using RimWorld;
+using RimWorld.Planet;
 using UnityEngine;
 using Verse;
 
@@ -16,13 +17,10 @@ namespace ForcedCommitmentMode
         /// about never being able to undo, not about a save per flame.</summary>
         private const float FireSaveCooldownSeconds = 10f;
 
-        /// <summary>The menu quit path already saves right before exiting; without this
-        /// window the quit hook would write the same file a second time.</summary>
-        private const float QuitSaveMinIntervalSeconds = 5f;
-
+        /// <summary>The menu quit path already saves right before exiting, as do the
+        /// event saves and the periodic autosave; vanilla tracks the last save tick for
+        /// all of them, so "nothing to save" is answered by CurrentGameStateIsValuable.</summary>
         private static bool saveQueued;
-
-        private static float lastSaveRealTime = -999f;
 
         private static float lastFireTriggerRealTime = -999f;
 
@@ -92,10 +90,13 @@ namespace ForcedCommitmentMode
         private static void PerformSave()
         {
             saveQueued = false;
+            if (!CommitmentModeActive)
+            {
+                return;
+            }
             try
             {
                 Find.Autosaver.DoAutosave();
-                lastSaveRealTime = Time.realtimeSinceStartup;
                 LogDebug("save finished.");
             }
             catch (Exception e)
@@ -122,10 +123,12 @@ namespace ForcedCommitmentMode
         /// <summary>Vanilla's own "does the player get messages about this pawn" filter:
         /// colonists, prisoners, slaves, guests, quest pawns and colony animals pass,
         /// while enemies, wild animals and world pawns are filtered out. Dead pawns are
-        /// not excluded - the killed trigger calls this after the fact on purpose.</summary>
+        /// not excluded - the killed trigger calls this after the fact on purpose. The
+        /// spawned/caravan requirement keeps off-screen world pawns (banished colonists
+        /// keep the player faction) from triggering saves when they die out of sight.</summary>
         public static bool PawnMattersToPlayer(Pawn pawn)
         {
-            if (pawn == null)
+            if (pawn == null || (!pawn.Spawned && !pawn.IsCaravanMember()))
             {
                 return false;
             }
@@ -159,9 +162,9 @@ namespace ForcedCommitmentMode
                     LogDebug("exit save skipped while saving is temporarily disabled.");
                     return;
                 }
-                if (Time.realtimeSinceStartup - lastSaveRealTime < QuitSaveMinIntervalSeconds)
+                if (!GameDataSaveLoader.CurrentGameStateIsValuable)
                 {
-                    LogDebug("exit save skipped, the game was saved moments ago.");
+                    LogDebug("exit save skipped, the save file is already up to date.");
                     return;
                 }
                 string fileName = Current.Game.Info.permadeathModeUniqueName;

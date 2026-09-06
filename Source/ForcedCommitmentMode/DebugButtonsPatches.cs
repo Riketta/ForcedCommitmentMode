@@ -23,6 +23,12 @@ namespace ForcedCommitmentMode
             {
                 return true;
             }
+            if (widgetRowField == null || widgetRowFinalXField == null)
+            {
+                // Renamed by a game update - drawing everything is safer than
+                // throwing in OnGUI every frame.
+                return true;
+            }
             WidgetRow row = (WidgetRow)widgetRowField.GetValue(__instance);
             row.Init(0f, 0f);
             if (row.ButtonIcon(TexButton.ToggleLog, "Open the debug log."))
@@ -45,11 +51,20 @@ namespace ForcedCommitmentMode
     {
         public static bool Prefix()
         {
-            if (!Prefs.DevMode || !CommitmentSaveUtility.ShouldEnforce)
+            if (!CommitmentSaveUtility.ShouldEnforce)
             {
                 return true;
             }
-            if (Event.current == null)
+            // Vanilla re-opens the dev palette on session start when
+            // Prefs.StartDevPaletteOn is set (queued from Game.FinalizeInit, which
+            // runs after our session-start god mode reset) - close it again.
+            if (DebugSettings.devPalette)
+            {
+                DebugSettings.devPalette = false;
+                Find.WindowStack?.TryRemove(typeof(Dialog_DevPalette));
+                CommitmentSaveUtility.LogDebug("dev palette closed (commitment mode save).");
+            }
+            if (!Prefs.DevMode || Event.current == null)
             {
                 return true;
             }

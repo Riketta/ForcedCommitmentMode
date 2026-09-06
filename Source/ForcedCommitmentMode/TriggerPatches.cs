@@ -14,7 +14,7 @@ namespace ForcedCommitmentMode
     [HarmonyPatch(typeof(IncidentWorker), "TryExecute")]
     public static class Patch_IncidentWorker_TryExecute
     {
-        public static void Postfix(IncidentWorker __instance, IncidentParms parms, bool __result)
+        public static void Postfix(IncidentWorker __instance, bool __result)
         {
             if (!__result || !ForcedCommitmentModeMod.Active)
             {
