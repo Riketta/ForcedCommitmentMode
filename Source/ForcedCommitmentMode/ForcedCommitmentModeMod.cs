@@ -102,8 +102,12 @@ namespace ForcedCommitmentMode
         }
 
         /// <summary>ALT+F4 and window kills never run game code, but Unity raises
-        /// Application.quitting for any process exit that is not a hard crash. Use the
-        /// last moment before teardown to flush the commitment save to disk.</summary>
+        /// Application.quitting for any process exit that is not a hard crash. The
+        /// callback is raised synchronously on the main thread between frames and
+        /// blocks teardown until it returns, so the save below is safe to run there:
+        /// nothing can interleave with it (vanilla saves share the same thread) and
+        /// the process cannot die mid-write. SafeSaver additionally writes to a
+        /// temp file and keeps the previous generation in commitment mode.</summary>
         private static void SubscribeQuitHookOnce()
         {
             if (quitHookSubscribed)
