@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <ForcedCommitmentMode.SettingsCategory>Forced Commitment Mode</ForcedCommitmentMode.SettingsCategory>
+
+  <ForcedCommitmentMode.Enabled>Enable Forced Commitment Mode</ForcedCommitmentMode.Enabled>
+  <ForcedCommitmentMode.EnabledTip>The mod only works while the loaded save is a commitment mode save. In any other save, or on the main menu, it stays completely inactive.</ForcedCommitmentMode.EnabledTip>
+
+  <ForcedCommitmentMode.TriggersHeader>Autosave triggers</ForcedCommitmentMode.TriggersHeader>
+  <ForcedCommitmentMode.IncidentsThreatBig>Big threats</ForcedCommitmentMode.IncidentsThreatBig>
+  <ForcedCommitmentMode.IncidentsThreatBigTip>Save when an incident of the ThreatBig category fires: raids, sieges, mech clusters, ambushes and everything else the storyteller files under ThreatBig - vanilla, DLC and modded alike.</ForcedCommitmentMode.IncidentsThreatBigTip>
+  <ForcedCommitmentMode.IncidentsThreatSmall>Small threats</ForcedCommitmentMode.IncidentsThreatSmall>
+  <ForcedCommitmentMode.IncidentsThreatSmallTip>Save when an incident of the ThreatSmall category fires: mad animals, blight, toxic fallout and everything else filed under ThreatSmall - vanilla, DLC and modded alike.</ForcedCommitmentMode.IncidentsThreatSmallTip>
+  <ForcedCommitmentMode.IncidentsInfestation>Infestations</ForcedCommitmentMode.IncidentsInfestation>
+  <ForcedCommitmentMode.IncidentsInfestationTip>Save when a deep drill infestation hatches under your miners.</ForcedCommitmentMode.IncidentsInfestationTip>
+  <ForcedCommitmentMode.IncidentsDisease>Disease outbreaks</ForcedCommitmentMode.IncidentsDisease>
+  <ForcedCommitmentMode.IncidentsDiseaseTip>Save when a disease outbreak runs through your pawns.</ForcedCommitmentMode.IncidentsDiseaseTip>
+  <ForcedCommitmentMode.PawnDowned>Pawn downed</ForcedCommitmentMode.PawnDowned>
+  <ForcedCommitmentMode.PawnDownedTip>Save when a pawn the colony cares about is downed: colonists, prisoners, slaves, guests, quest pawns and colony animals. Enemies and wild animals are ignored.</ForcedCommitmentMode.PawnDownedTip>
+  <ForcedCommitmentMode.PawnKilled>Pawn killed</ForcedCommitmentMode.PawnKilled>
+  <ForcedCommitmentMode.PawnKilledTip>Save when a pawn the colony cares about dies - colonists, prisoners, guests, quest pawns and colony animals. Enemies and wild animals are ignored.</ForcedCommitmentMode.PawnKilledTip>
+  <ForcedCommitmentMode.PrisonBreak>Prison break</ForcedCommitmentMode.PrisonBreak>
+  <ForcedCommitmentMode.PrisonBreakTip>Save when prisoners start a prison break.</ForcedCommitmentMode.PrisonBreakTip>
+  <ForcedCommitmentMode.MentalBreakMinor>Mental break - minor</ForcedCommitmentMode.MentalBreakMinor>
+  <ForcedCommitmentMode.MentalBreakMinorTip>Save when a colonist suffers a minor mental break, like tantrums or insults.</ForcedCommitmentMode.MentalBreakMinorTip>
+  <ForcedCommitmentMode.MentalBreakMajor>Mental break - major</ForcedCommitmentMode.MentalBreakMajor>
+  <ForcedCommitmentMode.MentalBreakMajorTip>Save when a colonist suffers a major mental break, like binging or sadistic rage.</ForcedCommitmentMode.MentalBreakMajorTip>
+  <ForcedCommitmentMode.MentalBreakExtreme>Mental break - extreme</ForcedCommitmentMode.MentalBreakExtreme>
+  <ForcedCommitmentMode.MentalBreakExtremeTip>Save when a colonist suffers an extreme mental break, like berserk or catatonic.</ForcedCommitmentMode.MentalBreakExtremeTip>
+  <ForcedCommitmentMode.BuildingDestroyed>Colony building destroyed</ForcedCommitmentMode.BuildingDestroyed>
+  <ForcedCommitmentMode.BuildingDestroyedTip>Save when a building owned by the colony is destroyed by damage, fire or collapse. Deconstructing it yourself does not count.</ForcedCommitmentMode.BuildingDestroyedTip>
+  <ForcedCommitmentMode.FireStarted>Fire started</ForcedCommitmentMode.FireStarted>
+  <ForcedCommitmentMode.FireStartedTip>Save when a fire appears on one of your maps. As fires spread by creating new fires, saves triggered by this option are limited to one per ten seconds.</ForcedCommitmentMode.FireStartedTip>
+
+  <ForcedCommitmentMode.SaveOnExit>Save on exit (ALT+F4 protection)</ForcedCommitmentMode.SaveOnExit>
+  <ForcedCommitmentMode.SaveOnExitTip>Write the commitment save when the game process is closed directly, for example with ALT+F4 or by killing the window. Closing the game can no longer roll back to an older state.</ForcedCommitmentMode.SaveOnExitTip>
+
+  <ForcedCommitmentMode.DebugLogging>Debug logging</ForcedCommitmentMode.DebugLogging>
+  <ForcedCommitmentMode.DebugLoggingTip>Log every trigger evaluation and save to the game log. For verifying behavior and bug reports.</ForcedCommitmentMode.DebugLoggingTip>
+</LanguageData>

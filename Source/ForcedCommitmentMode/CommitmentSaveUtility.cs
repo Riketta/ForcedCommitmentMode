@@ -1,0 +1,182 @@
+using System;
+using RimWorld;
+using UnityEngine;
+using Verse;
+
+namespace ForcedCommitmentMode
+{
+    /// <summary>Central save machinery: commitment mode detection, save coalescing and
+    /// the pawn filter shared by all triggers.</summary>
+    public static class CommitmentSaveUtility
+    {
+        public const string LogPrefix = "[ForcedCommitmentMode] ";
+
+        /// <summary>Fires spread by spawning further fires; without a cooldown a burning
+        /// base would chain saves back to back. Generous on purpose: commitment mode is
+        /// about never being able to undo, not about a save per flame.</summary>
+        private const float FireSaveCooldownSeconds = 10f;
+
+        /// <summary>The menu quit path already saves right before exiting; without this
+        /// window the quit hook would write the same file a second time.</summary>
+        private const float QuitSaveMinIntervalSeconds = 5f;
+
+        private static bool saveQueued;
+
+        private static float lastSaveRealTime = -999f;
+
+        private static float lastFireTriggerRealTime = -999f;
+
+        public static bool CommitmentModeActive
+        {
+            get
+            {
+                if (Current.ProgramState != ProgramState.Playing
+                    || Current.Game == null
+                    || Current.Game.Info == null
+                    || Find.Autosaver == null)
+                {
+                    return false;
+                }
+                return Current.Game.Info.permadeathMode;
+            }
+        }
+
+        public static void LogDebug(string message)
+        {
+            if (ForcedCommitmentModeMod.Settings == null || ForcedCommitmentModeMod.Settings.debugLogging)
+            {
+                Log.Message(LogPrefix + message);
+            }
+        }
+
+        /// <summary>True while a commitment mode save is loaded and the mod may act:
+        /// trigger filters, button hiding and god mode enforcement all key off this.</summary>
+        public static bool ShouldEnforce
+        {
+            get
+            {
+                if (!ForcedCommitmentModeMod.Active)
+                {
+                    return false;
+                }
+                return CommitmentModeActive;
+            }
+        }
+
+        /// <summary>Queues one vanilla autosave. Concurrent triggers coalesce into the
+        /// same queued save because it serializes the game state at execution time -
+        /// which is always later than any event that queued it.</summary>
+        public static void RequestSave(string trigger, string detail)
+        {
+            if (!ShouldEnforce)
+            {
+                return;
+            }
+            if (GameDataSaveLoader.SavingIsTemporarilyDisabled)
+            {
+                // Vanilla skips saving during gravship cutscenes and tile picking too;
+                // the periodic commitment autosave covers the gap.
+                LogDebug("skipped save while saving is temporarily disabled (" + trigger + ": " + detail + ").");
+                return;
+            }
+            if (saveQueued)
+            {
+                LogDebug("coalesced trigger into the pending save (" + trigger + ": " + detail + ").");
+                return;
+            }
+            saveQueued = true;
+            LogDebug("saving (" + trigger + ": " + detail + ").");
+            LongEventHandler.QueueLongEvent(PerformSave, "Autosaving", doAsynchronously: false, null);
+        }
+
+        private static void PerformSave()
+        {
+            saveQueued = false;
+            try
+            {
+                Find.Autosaver.DoAutosave();
+                lastSaveRealTime = Time.realtimeSinceStartup;
+                LogDebug("save finished.");
+            }
+            catch (Exception e)
+            {
+                Log.Error(LogPrefix + "autosave failed: " + e);
+            }
+        }
+
+        /// <summary>Fire triggers are rate limited to avoid save chains while a fire
+        /// spreads; other triggers are rare enough to never need this.</summary>
+        public static bool FireTriggerAllowed
+        {
+            get
+            {
+                return Time.realtimeSinceStartup - lastFireTriggerRealTime >= FireSaveCooldownSeconds;
+            }
+        }
+
+        public static void NotifyFireTriggered()
+        {
+            lastFireTriggerRealTime = Time.realtimeSinceStartup;
+        }
+
+        /// <summary>Vanilla's own "does the player get messages about this pawn" filter:
+        /// colonists, prisoners, slaves, guests, quest pawns and colony animals pass,
+        /// while enemies, wild animals and world pawns are filtered out. Dead pawns are
+        /// not excluded - the killed trigger calls this after the fact on purpose.</summary>
+        public static bool PawnMattersToPlayer(Pawn pawn)
+        {
+            if (pawn == null)
+            {
+                return false;
+            }
+            return PawnUtility.ShouldSendNotificationAbout(pawn);
+        }
+
+        public static void OnGameSessionStarted()
+        {
+            if (!ShouldEnforce)
+            {
+                return;
+            }
+            if (DebugSettings.godMode)
+            {
+                DebugSettings.godMode = false;
+                Log.Message(LogPrefix + "god mode switched off (commitment mode save).");
+            }
+        }
+
+        public static void OnApplicationQuitting()
+        {
+            try
+            {
+                ForcedCommitmentModeSettings settings = ForcedCommitmentModeMod.Settings;
+                if (settings == null || !settings.enabled || !settings.saveOnExit || !CommitmentModeActive)
+                {
+                    return;
+                }
+                if (GameDataSaveLoader.SavingIsTemporarilyDisabled)
+                {
+                    LogDebug("exit save skipped while saving is temporarily disabled.");
+                    return;
+                }
+                if (Time.realtimeSinceStartup - lastSaveRealTime < QuitSaveMinIntervalSeconds)
+                {
+                    LogDebug("exit save skipped, the game was saved moments ago.");
+                    return;
+                }
+                string fileName = Current.Game.Info.permadeathModeUniqueName;
+                if (fileName.NullOrEmpty())
+                {
+                    return;
+                }
+                LogDebug("exit save (process quitting).");
+                GameDataSaveLoader.SaveGame(fileName);
+                Log.Message(LogPrefix + "exit save finished.");
+            }
+            catch (Exception e)
+            {
+                Log.Warning(LogPrefix + "exit save failed: " + e.Message);
+            }
+        }
+    }
+}
