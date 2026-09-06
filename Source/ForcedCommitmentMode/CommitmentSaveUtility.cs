@@ -137,6 +137,10 @@ namespace ForcedCommitmentMode
 
         public static void OnGameSessionStarted()
         {
+            // Quitting to the menu runs LongEventHandler.ClearQueuedEvents(), which can
+            // drop a queued save while saveQueued is still set; a stale flag would make
+            // every later trigger coalesce into a save that never executes.
+            saveQueued = false;
             if (!ShouldEnforce)
             {
                 return;

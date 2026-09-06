@@ -17,7 +17,7 @@
   <ForcedCommitmentMode.PawnDowned>Pawn downed</ForcedCommitmentMode.PawnDowned>
   <ForcedCommitmentMode.PawnDownedTip>Save when a pawn the colony cares about is downed: colonists, prisoners, slaves, guests, quest pawns and colony animals. Enemies and wild animals are ignored.</ForcedCommitmentMode.PawnDownedTip>
   <ForcedCommitmentMode.PawnKilled>Pawn killed</ForcedCommitmentMode.PawnKilled>
-  <ForcedCommitmentMode.PawnKilledTip>Save when a pawn the colony cares about dies - colonists, prisoners, guests, quest pawns and colony animals. Enemies and wild animals are ignored.</ForcedCommitmentMode.PawnKilledTip>
+  <ForcedCommitmentMode.PawnKilledTip>Save when a pawn the colony cares about dies - colonists, prisoners, slaves, guests, quest pawns and colony animals. Enemies and wild animals are ignored.</ForcedCommitmentMode.PawnKilledTip>
   <ForcedCommitmentMode.PrisonBreak>Prison break</ForcedCommitmentMode.PrisonBreak>
   <ForcedCommitmentMode.PrisonBreakTip>Save when prisoners start a prison break.</ForcedCommitmentMode.PrisonBreakTip>
   <ForcedCommitmentMode.MentalBreakMinor>Mental break - minor</ForcedCommitmentMode.MentalBreakMinor>
