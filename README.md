@@ -74,8 +74,9 @@ never turns development mode on by itself.
 
 ## Mod settings
 
-- **Enable Forced Commitment Mode** - master toggle; the mod is inactive in non-commitment
-  saves regardless.
+- There is deliberately no master on/off switch: the mod is always active in commitment
+  mode saves and inert everywhere else. Turning it off means removing it from the mod
+  list (requires a game restart) - an in-game toggle would defeat the purpose.
 - One toggle per autosave trigger, as listed above (all default to on).
 - **Debug logging** - logs every trigger evaluation, coalesced trigger and save to the
   game log:

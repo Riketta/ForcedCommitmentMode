@@ -16,7 +16,7 @@ namespace ForcedCommitmentMode
     {
         public static void Postfix(IncidentWorker __instance, IncidentParms parms, bool __result)
         {
-            if (!__result || !ForcedCommitmentModeMod.Active)
+            if (!__result || !CommitmentSaveUtility.ShouldEnforce)
             {
                 return;
             }
@@ -71,7 +71,7 @@ namespace ForcedCommitmentMode
     {
         public static void Postfix(Pawn ___pawn)
         {
-            if (!ForcedCommitmentModeMod.Active || !ForcedCommitmentModeMod.Settings.pawnDowned)
+            if (!CommitmentSaveUtility.ShouldEnforce || !ForcedCommitmentModeMod.Settings.pawnDowned)
             {
                 return;
             }
@@ -87,7 +87,7 @@ namespace ForcedCommitmentMode
     {
         public static void Postfix(Pawn __instance)
         {
-            if (!ForcedCommitmentModeMod.Active || !ForcedCommitmentModeMod.Settings.pawnKilled)
+            if (!CommitmentSaveUtility.ShouldEnforce || !ForcedCommitmentModeMod.Settings.pawnKilled)
             {
                 return;
             }
@@ -138,7 +138,7 @@ namespace ForcedCommitmentMode
 
         public static void Postfix(MentalStateDef stateDef, bool __result, Pawn ___pawn)
         {
-            if (!__result || !ForcedCommitmentModeMod.Active)
+            if (!__result || !CommitmentSaveUtility.ShouldEnforce)
             {
                 return;
             }
@@ -199,7 +199,7 @@ namespace ForcedCommitmentMode
 
         public static void Postfix(Pawn initiator)
         {
-            if (!ForcedCommitmentModeMod.Active || !ForcedCommitmentModeMod.Settings.prisonBreak)
+            if (!CommitmentSaveUtility.ShouldEnforce || !ForcedCommitmentModeMod.Settings.prisonBreak)
             {
                 return;
             }
@@ -224,7 +224,7 @@ namespace ForcedCommitmentMode
             {
                 return;
             }
-            if (!ForcedCommitmentModeMod.Active || !ForcedCommitmentModeMod.Settings.buildingDestroyed)
+            if (!CommitmentSaveUtility.ShouldEnforce || !ForcedCommitmentModeMod.Settings.buildingDestroyed)
             {
                 return;
             }
@@ -247,7 +247,7 @@ namespace ForcedCommitmentMode
             {
                 return;
             }
-            if (!ForcedCommitmentModeMod.Active || !ForcedCommitmentModeMod.Settings.fireStarted)
+            if (!CommitmentSaveUtility.ShouldEnforce || !ForcedCommitmentModeMod.Settings.fireStarted)
             {
                 return;
             }

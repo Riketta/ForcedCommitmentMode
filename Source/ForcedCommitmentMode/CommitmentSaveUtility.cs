@@ -48,18 +48,11 @@ namespace ForcedCommitmentMode
         }
 
         /// <summary>True while a commitment mode save is loaded and the mod may act:
-        /// trigger filters, button hiding and god mode enforcement all key off this.</summary>
-        public static bool ShouldEnforce
-        {
-            get
-            {
-                if (!ForcedCommitmentModeMod.Active)
-                {
-                    return false;
-                }
-                return CommitmentModeActive;
-            }
-        }
+        /// trigger filters, button hiding and god mode enforcement all key off this.
+        /// There is deliberately no master off switch - the mod is always on in
+        /// commitment mode saves and inert everywhere else; turning it off means
+        /// removing it from the mod list (which needs a game restart).</summary>
+        public static bool ShouldEnforce => CommitmentModeActive;
 
         /// <summary>Queues one vanilla autosave. Concurrent triggers coalesce into the
         /// same queued save because it serializes the game state at execution time -
@@ -159,7 +152,7 @@ namespace ForcedCommitmentMode
             try
             {
                 ForcedCommitmentModeSettings settings = ForcedCommitmentModeMod.Settings;
-                if (settings == null || !settings.enabled || !settings.saveOnExit || !CommitmentModeActive)
+                if (settings == null || !settings.saveOnExit || !CommitmentModeActive)
                 {
                     return;
                 }

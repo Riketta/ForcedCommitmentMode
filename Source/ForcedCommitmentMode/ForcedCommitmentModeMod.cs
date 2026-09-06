@@ -8,8 +8,6 @@ namespace ForcedCommitmentMode
 {
     public class ForcedCommitmentModeSettings : ModSettings
     {
-        public bool enabled = true;
-
         // Incident category triggers.
         public bool incidentsThreatBig = true;
         public bool incidentsThreatSmall = true;
@@ -34,7 +32,6 @@ namespace ForcedCommitmentMode
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref enabled, "enabled", true);
             Scribe_Values.Look(ref incidentsThreatBig, "incidentsThreatBig", true);
             Scribe_Values.Look(ref incidentsThreatSmall, "incidentsThreatSmall", true);
             Scribe_Values.Look(ref incidentsInfestation, "incidentsInfestation", true);
@@ -58,10 +55,6 @@ namespace ForcedCommitmentMode
 
         public static ForcedCommitmentModeSettings Settings;
 
-        /// <summary>Master switch, read by every patch on each call. Null-safe: without
-        /// settings the patches stay active rather than silently disabling the mod.</summary>
-        public static bool Active => Settings?.enabled ?? true;
-
         private static bool quitHookSubscribed;
 
         public ForcedCommitmentModeMod(ModContentPack content) : base(content)
@@ -84,8 +77,7 @@ namespace ForcedCommitmentMode
             PatchSafe(harmony, typeof(Patch_Game_InitNewGame));
             PatchSafe(harmony, typeof(Patch_SavedGameLoaderNow_LoadGameFromSaveFileNow));
 
-            CommitmentSaveUtility.LogDebug("loaded (enabled=" + Settings.enabled.ToString().ToLowerInvariant()
-                + ", debugLogging=" + Settings.debugLogging.ToString().ToLowerInvariant() + ").");
+            CommitmentSaveUtility.LogDebug("loaded (debugLogging=" + Settings.debugLogging.ToString().ToLowerInvariant() + ").");
         }
 
         private static void PatchSafe(Harmony harmony, Type patchClass)
@@ -127,7 +119,7 @@ namespace ForcedCommitmentMode
         {
             Listing_Standard list = new Listing_Standard();
             list.Begin(inRect);
-            list.CheckboxLabeled("ForcedCommitmentMode.Enabled".Translate(), ref Settings.enabled, "ForcedCommitmentMode.EnabledTip".Translate());
+            list.Label("ForcedCommitmentMode.Note".Translate());
             list.Gap(12f);
 
             Text.Font = GameFont.Medium;

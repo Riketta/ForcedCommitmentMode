@@ -29,7 +29,8 @@ While a commitment mode save is running, the dev toolbar is reduced to the log w
 [list][*]The save is the vanilla commitment autosave: it overwrites the single permadeath save file, exactly like the vanilla autosave does - at the moment the risk appears. The normal once-a-day autosave keeps running as well, so a crash during a quiet stretch still loses at most one in-game day.
 [*]Several triggers in the same moment share one save; a trigger right after a save still saves again - commitment integrity beats save count.
 [*]Modded incidents that use a custom incident category are not triggers, but their consequences (downed or killed pawns, destroyed buildings) still are.
-[*]Saves are skipped while vanilla itself disables saving (gravship cutscenes, tile picking); the next trigger or the periodic autosave catches up.[/list]
+[*]Saves are skipped while vanilla itself disables saving (gravship cutscenes, tile picking); the next trigger or the periodic autosave catches up.
+[*]There is no on/off switch in the mod settings, by design - the mod is always on in commitment mode saves and inert everywhere else; to turn it off, remove it from the mod list (requires a game restart).[/list]
 
 [h3]Compatibility[/h3]
 Requires RimWorld 1.6 and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url].

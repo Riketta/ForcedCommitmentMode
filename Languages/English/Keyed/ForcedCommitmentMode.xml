@@ -2,8 +2,7 @@
 <LanguageData>
   <ForcedCommitmentMode.SettingsCategory>Forced Commitment Mode</ForcedCommitmentMode.SettingsCategory>
 
-  <ForcedCommitmentMode.Enabled>Enable Forced Commitment Mode</ForcedCommitmentMode.Enabled>
-  <ForcedCommitmentMode.EnabledTip>The mod only works while the loaded save is a commitment mode save. In any other save, or on the main menu, it stays completely inactive.</ForcedCommitmentMode.EnabledTip>
+  <ForcedCommitmentMode.Note>Only active in commitment mode saves.</ForcedCommitmentMode.Note>
 
   <ForcedCommitmentMode.TriggersHeader>Autosave triggers</ForcedCommitmentMode.TriggersHeader>
   <ForcedCommitmentMode.IncidentsThreatBig>Big threats</ForcedCommitmentMode.IncidentsThreatBig>
