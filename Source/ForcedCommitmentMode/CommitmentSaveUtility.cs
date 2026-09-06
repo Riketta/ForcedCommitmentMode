@@ -63,7 +63,9 @@ namespace ForcedCommitmentMode
 
         /// <summary>Queues one vanilla autosave. Concurrent triggers coalesce into the
         /// same queued save because it serializes the game state at execution time -
-        /// which is always later than any event that queued it.</summary>
+        /// which is always later than any event that queued it. Purely additive: the
+        /// vanilla periodic autosave and its interval timer are never touched, so a
+        /// crash during a long quiet stretch still loses at most one in-game day.</summary>
         public static void RequestSave(string trigger, string detail)
         {
             if (!ShouldEnforce)

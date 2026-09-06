@@ -42,6 +42,11 @@ kills a third), they share one save instead of stacking several.
 - The save itself is the vanilla commitment autosave (`Autosaver.DoAutosave`), queued
   exactly like a vanilla autosave: in commitment mode it overwrites the single permadeath
   save file, so reloading always returns you to the moment the risk appeared.
+- **The vanilla periodic autosave is never disabled.** Event saves are additive: the
+  normal once-per-in-game-day commitment autosave keeps running with its vanilla cadence,
+  so a crash during a long quiet stretch (no raids, no fights, no breaks) still loses at
+  most one day of progress, and it also covers the rare windows where this mod skips a
+  save because vanilla disabled saving.
 - Only the state matters, not the source: quest-triggered raids, DLC events and modded
   incidents are saved the same as storyteller raids as long as they use the vanilla
   incident categories.

@@ -26,7 +26,7 @@ Only active while the loaded save is a commitment mode save; in any other save t
 While a commitment mode save is running, the dev toolbar is reduced to the log window button: god mode, debug actions, tweak values, view settings, the debug output menu, the inspector and the dev palette are hidden, their hotkeys swallowed (the log hotkey keeps working). God mode is also switched off when a commitment save starts, so a stale flag cannot leak in. Requires development mode to be enabled in the game options; the mod never turns it on by itself.
 
 [h3]Things to keep in mind[/h3]
-[list][*]The save is the vanilla commitment autosave: it overwrites the single permadeath save file, exactly like the vanilla autosave does - just at the moment the risk appears instead of once a day.
+[list][*]The save is the vanilla commitment autosave: it overwrites the single permadeath save file, exactly like the vanilla autosave does - at the moment the risk appears. The normal once-a-day autosave keeps running as well, so a crash during a quiet stretch still loses at most one in-game day.
 [*]Several triggers in the same moment share one save; a trigger right after a save still saves again - commitment integrity beats save count.
 [*]Modded incidents that use a custom incident category are not triggers, but their consequences (downed or killed pawns, destroyed buildings) still are.
 [*]Saves are skipped while vanilla itself disables saving (gravship cutscenes, tile picking); the next trigger or the periodic autosave catches up.[/list]
