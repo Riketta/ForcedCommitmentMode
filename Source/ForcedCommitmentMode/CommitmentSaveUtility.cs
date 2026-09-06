@@ -15,7 +15,7 @@ namespace ForcedCommitmentMode
         /// <summary>Fires spread by spawning further fires; without a cooldown a burning
         /// base would chain saves back to back. Generous on purpose: commitment mode is
         /// about never being able to undo, not about a save per flame.</summary>
-        private const float FireSaveCooldownSeconds = 10f;
+        private const float FireSaveCooldownSeconds = 60f;
 
         /// <summary>The menu quit path already saves right before exiting, as do the
         /// event saves and the periodic autosave; vanilla tracks the last save tick for

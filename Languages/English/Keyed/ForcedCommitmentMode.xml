@@ -29,7 +29,7 @@
   <ForcedCommitmentMode.BuildingDestroyed>Colony building destroyed</ForcedCommitmentMode.BuildingDestroyed>
   <ForcedCommitmentMode.BuildingDestroyedTip>Save when a building owned by the colony is destroyed by damage, fire or collapse. Deconstructing it yourself does not count.</ForcedCommitmentMode.BuildingDestroyedTip>
   <ForcedCommitmentMode.FireStarted>Fire started</ForcedCommitmentMode.FireStarted>
-  <ForcedCommitmentMode.FireStartedTip>Save when a fire appears on one of your maps. As fires spread by creating new fires, saves triggered by this option are limited to one per ten seconds.</ForcedCommitmentMode.FireStartedTip>
+  <ForcedCommitmentMode.FireStartedTip>Save when a fire appears on one of your maps. As fires spread by creating new fires, saves triggered by this option are limited to one per minute.</ForcedCommitmentMode.FireStartedTip>
 
   <ForcedCommitmentMode.SaveOnExit>Save on exit (ALT+F4 protection)</ForcedCommitmentMode.SaveOnExit>
   <ForcedCommitmentMode.SaveOnExitTip>Write the commitment save when the game process is closed directly, for example with ALT+F4 or by killing the window. Closing the game can no longer roll back to an older state.</ForcedCommitmentMode.SaveOnExitTip>

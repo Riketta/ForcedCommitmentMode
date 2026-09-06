@@ -19,7 +19,7 @@ Only active while the loaded save is a commitment mode save; in any other save t
 [*]Prison break.
 [*]Mental breaks - separate toggles for minor, major and extreme.
 [*]Colony building destroyed by damage, fire or collapse (deconstruction does not count).
-[*]Fire started - rate limited to one save per ten seconds while a fire spreads.
+[*]Fire started - rate limited to one save per minute while a fire spreads.
 [*]Save on exit - writes the save when the process is closed directly (ALT+F4 protection).[/list]
 
 [h3]Debug tools[/h3]

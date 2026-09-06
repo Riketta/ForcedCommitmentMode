@@ -28,7 +28,7 @@ kills a third), they share one save instead of stacking several.
 - **Colony building destroyed** - a player-faction building destroyed by damage, fire or
   collapse. Deconstructing it yourself does not count.
 - **Fire started** - a fire appears on one of your maps. Fires spread by creating more
-  fires, so this trigger is rate limited to one save per ten seconds.
+  fires, so this trigger is rate limited to one save per minute.
 - **Save on exit** - flushes the save when the game process closes directly (ALT+F4,
   killing the window). Quitting through the main menu already saves and is detected.
 
@@ -91,7 +91,7 @@ never turns development mode on by itself.
 - **Only vanilla incident categories are recognized.** A modded incident that uses a
   custom incident category is not a trigger; downed/killed/break triggers still cover its
   consequences.
-- **Rate-limited fire trigger.** During a firestorm, fires that spawn within ten seconds
+- **Rate-limited fire trigger.** During a firestorm, fires that spawn within one minute
   of the last fire save do not trigger their own save; the save that started the chain
   already contains the cause.
 - **Saves are skipped while vanilla disables saving** (gravship cutscenes, tile picking),
