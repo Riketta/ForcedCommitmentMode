@@ -61,6 +61,14 @@ namespace ForcedCommitmentMode
 
         private static bool quitHookSubscribed;
 
+        // The per-mod settings dialog (Dialog_ModSettings) does not scroll and small
+        // resolutions clip the lower rows, so the listing is wrapped in a scrollview.
+        // The view height only becomes known after a frame of drawing, hence the
+        // previous-frame height.
+        private Vector2 scrollPosition;
+
+        private float lastContentHeight;
+
         public ForcedCommitmentModeMod(ModContentPack content) : base(content)
         {
             Settings = GetSettings<ForcedCommitmentModeSettings>();
@@ -121,8 +129,10 @@ namespace ForcedCommitmentMode
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
-            Listing_Standard list = new Listing_Standard();
-            list.Begin(inRect);
+            Rect viewRect = new Rect(0f, 0f, inRect.width - 16f, Mathf.Max(lastContentHeight, inRect.height));
+            Widgets.BeginScrollView(inRect, ref scrollPosition, viewRect);
+            Listing_Standard list = new Listing_Standard(viewRect, () => scrollPosition);
+            list.Begin(viewRect);
             list.Label("ForcedCommitmentMode.Note".Translate());
             list.Gap(8f);
             list.CheckboxLabeled("ForcedCommitmentMode.NonCommitment".Translate(), ref Settings.activeInNonCommitment, "ForcedCommitmentMode.NonCommitmentTip".Translate());
@@ -152,6 +162,8 @@ namespace ForcedCommitmentMode
 
             list.CheckboxLabeled("ForcedCommitmentMode.DebugLogging".Translate(), ref Settings.debugLogging, "ForcedCommitmentMode.DebugLoggingTip".Translate());
             list.End();
+            lastContentHeight = list.CurHeight;
+            Widgets.EndScrollView();
         }
     }
 }
