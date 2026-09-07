@@ -8,7 +8,7 @@ plain-text description).
 [h3]Forced Commitment Mode[/h3]
 The game autosaves the instant anything risky happens - a raid, a downed colonist, a mental break, a fire - so no outcome can ever be reloaded away. Closing or crashing the game can no longer dodge a save either.
 
-Only active while the loaded save is a commitment mode save; in any other save the mod does nothing.
+Always active while the loaded save is a commitment mode save; in reload-anytime saves the mod does nothing unless the optional "also enforce autosaves in non-commitment saves" setting is turned on (event autosaves then write to the normal rotating Autosave slots; the anti-cheat debug restrictions stay commitment-only).
 
 [h3]Autosave triggers (all optional, all on by default)[/h3]
 [list][*]Big threats - raids, sieges, mech clusters, ambushes and everything else the storyteller files under ThreatBig, including DLC and modded incidents.

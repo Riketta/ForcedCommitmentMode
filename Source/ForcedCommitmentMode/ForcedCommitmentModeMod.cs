@@ -24,6 +24,9 @@ namespace ForcedCommitmentMode
         public bool buildingDestroyed = true;
         public bool fireStarted = true;
 
+        // Scope.
+        public bool activeInNonCommitment = false;
+
         // Anti-cheat extras.
         public bool saveOnExit = true;
 
@@ -44,6 +47,7 @@ namespace ForcedCommitmentMode
             Scribe_Values.Look(ref prisonBreak, "prisonBreak", true);
             Scribe_Values.Look(ref buildingDestroyed, "buildingDestroyed", true);
             Scribe_Values.Look(ref fireStarted, "fireStarted", true);
+            Scribe_Values.Look(ref activeInNonCommitment, "activeInNonCommitment", false);
             Scribe_Values.Look(ref saveOnExit, "saveOnExit", true);
             Scribe_Values.Look(ref debugLogging, "debugLogging", false);
         }
@@ -120,6 +124,8 @@ namespace ForcedCommitmentMode
             Listing_Standard list = new Listing_Standard();
             list.Begin(inRect);
             list.Label("ForcedCommitmentMode.Note".Translate());
+            list.Gap(8f);
+            list.CheckboxLabeled("ForcedCommitmentMode.NonCommitment".Translate(), ref Settings.activeInNonCommitment, "ForcedCommitmentMode.NonCommitmentTip".Translate());
             list.Gap(12f);
 
             Text.Font = GameFont.Medium;

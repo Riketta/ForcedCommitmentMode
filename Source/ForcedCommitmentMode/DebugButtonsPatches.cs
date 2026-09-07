@@ -9,7 +9,9 @@ namespace ForcedCommitmentMode
 {
     /// <summary>While a commitment mode save is played, the dev toolbar is reduced to
     /// the log window button: god mode, debug actions, tweak values, view settings,
-    /// the debug output menu, the inspector and the dev palette are all hidden.</summary>
+    /// the debug output menu, the inspector and the dev palette are all hidden.
+    /// Anti-cheat only: it stays tied to commitment mode even when the optional
+    /// non-commitment autosave setting is on, where reloading is allowed anyway.</summary>
     [HarmonyPatch(typeof(DebugWindowsOpener), "DrawButtons")]
     public static class Patch_DebugWindowsOpener_DrawButtons
     {
@@ -19,7 +21,7 @@ namespace ForcedCommitmentMode
 
         public static bool Prefix(DebugWindowsOpener __instance)
         {
-            if (!CommitmentSaveUtility.ShouldEnforce)
+            if (!CommitmentSaveUtility.CommitmentModeActive)
             {
                 return true;
             }
@@ -51,7 +53,7 @@ namespace ForcedCommitmentMode
     {
         public static bool Prefix()
         {
-            if (!CommitmentSaveUtility.ShouldEnforce)
+            if (!CommitmentSaveUtility.CommitmentModeActive)
             {
                 return true;
             }

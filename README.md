@@ -4,8 +4,11 @@ A RimWorld 1.6 mod that enforces a true commitment mode playstyle: the game auto
 instant anything risky happens, so no outcome - a raid, a downed colonist, a burning base -
 can ever be reloaded away. Closing or crashing the game can no longer dodge a save either.
 
-The mod is only active while the loaded save is a commitment mode save. In any other save,
-or on the main menu, it does nothing.
+The mod is always active while the loaded save is a commitment mode save. In any other
+save, or on the main menu, it does nothing - unless the optional "also enforce autosaves
+in non-commitment saves" setting is turned on, which extends the event autosaves and the
+exit save to reload-anytime saves (they write to the normal rotating Autosave slots; the
+anti-cheat debug restrictions stay commitment-only).
 
 ## Autosave triggers
 
@@ -60,7 +63,10 @@ While a commitment mode save is running, the dev toolbar is reduced to the log w
 button: the god mode toggle, debug actions, tweak values, view settings, the debug output
 menu, the inspector and the dev palette are hidden, and their hotkeys are swallowed (the
 log window hotkey keeps working). God mode is also switched off when a commitment save
-starts - the flag is app-wide and would otherwise leak in from a previous session.
+starts - the flag is app-wide and would otherwise leak in from a previous session. This
+anti-cheat stays tied to commitment mode even when the optional non-commitment autosave
+setting is on: in a reload-anytime save there is nothing to protect, and dev mode users
+keep their tools.
 
 Requires development mode to be enabled in the game options to have any effect; the mod
 never turns development mode on by itself.
@@ -75,8 +81,11 @@ never turns development mode on by itself.
 ## Mod settings
 
 - There is deliberately no master on/off switch: the mod is always active in commitment
-  mode saves and inert everywhere else. Turning it off means removing it from the mod
-  list (requires a game restart) - an in-game toggle would defeat the purpose.
+  mode saves. Turning it off means removing it from the mod list (requires a game
+  restart) - an in-game toggle would defeat the purpose.
+- **Also enforce autosaves in non-commitment saves** (off by default) - extends the event
+  autosaves and the exit save to reload-anytime saves, writing to the normal rotating
+  Autosave slots. The anti-cheat debug restrictions stay commitment-only.
 - One toggle per autosave trigger, as listed above (all default to on).
 - **Debug logging** - logs every trigger evaluation, coalesced trigger and save to the
   game log:

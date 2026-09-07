@@ -24,7 +24,8 @@ namespace ForcedCommitmentMode
 
         private static float lastFireTriggerRealTime = -999f;
 
-        public static bool CommitmentModeActive
+        /// <summary>A game is loaded and far enough along to save.</summary>
+        private static bool InRunningGame
         {
             get
             {
@@ -32,6 +33,18 @@ namespace ForcedCommitmentMode
                     || Current.Game == null
                     || Current.Game.Info == null
                     || Find.Autosaver == null)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        public static bool CommitmentModeActive
+        {
+            get
+            {
+                if (!InRunningGame)
                 {
                     return false;
                 }
@@ -47,12 +60,27 @@ namespace ForcedCommitmentMode
             }
         }
 
-        /// <summary>True while a commitment mode save is loaded and the mod may act:
-        /// trigger filters, button hiding and god mode enforcement all key off this.
-        /// There is deliberately no master off switch - the mod is always on in
-        /// commitment mode saves and inert everywhere else; turning it off means
-        /// removing it from the mod list (which needs a game restart).</summary>
-        public static bool ShouldEnforce => CommitmentModeActive;
+        /// <summary>True while the mod enforces in the currently loaded save: always in
+        /// commitment mode saves, and in non-commitment saves when the optional setting
+        /// is on. There is no off switch for commitment saves - turning the mod off
+        /// means removing it from the mod list (which needs a game restart). The
+        /// anti-cheat debug restrictions do NOT follow this flag; they stay tied to
+        /// CommitmentModeActive, where reloading is not allowed anyway.</summary>
+        public static bool ShouldEnforce
+        {
+            get
+            {
+                if (!InRunningGame)
+                {
+                    return false;
+                }
+                if (Current.Game.Info.permadeathMode)
+                {
+                    return true;
+                }
+                return ForcedCommitmentModeMod.Settings?.activeInNonCommitment ?? false;
+            }
+        }
 
         /// <summary>Queues one vanilla autosave. Concurrent triggers coalesce into the
         /// same queued save because it serializes the game state at execution time -
@@ -85,7 +113,7 @@ namespace ForcedCommitmentMode
         private static void PerformSave()
         {
             saveQueued = false;
-            if (!CommitmentModeActive)
+            if (!ShouldEnforce)
             {
                 return;
             }
@@ -136,7 +164,7 @@ namespace ForcedCommitmentMode
             // drop a queued save while saveQueued is still set; a stale flag would make
             // every later trigger coalesce into a save that never executes.
             saveQueued = false;
-            if (!ShouldEnforce)
+            if (!CommitmentModeActive)
             {
                 return;
             }
@@ -152,7 +180,7 @@ namespace ForcedCommitmentMode
             try
             {
                 ForcedCommitmentModeSettings settings = ForcedCommitmentModeMod.Settings;
-                if (settings == null || !settings.saveOnExit || !CommitmentModeActive)
+                if (settings == null || !settings.saveOnExit || !ShouldEnforce)
                 {
                     return;
                 }
@@ -166,13 +194,10 @@ namespace ForcedCommitmentMode
                     LogDebug("exit save skipped, the save file is already up to date.");
                     return;
                 }
-                string fileName = Current.Game.Info.permadeathModeUniqueName;
-                if (fileName.NullOrEmpty())
-                {
-                    return;
-                }
                 LogDebug("exit save (process quitting).");
-                GameDataSaveLoader.SaveGame(fileName);
+                // DoAutosave writes the single permadeath file in commitment mode and
+                // the rotating Autosave-N slots in non-commitment saves.
+                Find.Autosaver.DoAutosave();
                 Log.Message(LogPrefix + "exit save finished.");
             }
             catch (Exception e)

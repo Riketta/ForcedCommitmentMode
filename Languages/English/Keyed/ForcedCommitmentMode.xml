@@ -2,7 +2,10 @@
 <LanguageData>
   <ForcedCommitmentMode.SettingsCategory>Forced Commitment Mode</ForcedCommitmentMode.SettingsCategory>
 
-  <ForcedCommitmentMode.Note>Only active in commitment mode saves.</ForcedCommitmentMode.Note>
+  <ForcedCommitmentMode.Note>Always active in commitment mode saves. There is no on/off switch by design: to turn the mod off, remove it from the mod list (requires a game restart).</ForcedCommitmentMode.Note>
+
+  <ForcedCommitmentMode.NonCommitment>Also enforce autosaves in non-commitment saves</ForcedCommitmentMode.NonCommitment>
+  <ForcedCommitmentMode.NonCommitmentTip>Off by default: without it, the mod stays inactive in reload-anytime saves. When on, the event autosaves and the exit save also run there, writing to the normal rotating Autosave slots. The anti-cheat debug restrictions (hidden debug buttons, god mode off) still apply only to commitment mode saves.</ForcedCommitmentMode.NonCommitmentTip>
 
   <ForcedCommitmentMode.TriggersHeader>Autosave triggers</ForcedCommitmentMode.TriggersHeader>
   <ForcedCommitmentMode.IncidentsThreatBig>Big threats</ForcedCommitmentMode.IncidentsThreatBig>
