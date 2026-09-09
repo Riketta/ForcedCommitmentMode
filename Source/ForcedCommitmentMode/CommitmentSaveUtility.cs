@@ -1,4 +1,5 @@
 using System;
+using LudeonTK;
 using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
@@ -172,6 +173,29 @@ namespace ForcedCommitmentMode
             {
                 DebugSettings.godMode = false;
                 Log.Message(LogPrefix + "god mode switched off (commitment mode save).");
+            }
+            CloseDebugWindows();
+        }
+
+        /// <summary>Debug windows live on the app-wide window stack and survive loading
+        /// a different save: one opened in a non-commitment save would stay up (and keep
+        /// working) inside a commitment save whose toolbar buttons are hidden. All
+        /// Dialog_Debug tab menus (actions, settings, output) share one class, so a
+        /// single TryRemove catches them all; the log window is the allowed exception.</summary>
+        private static void CloseDebugWindows()
+        {
+            WindowStack windowStack = Find.WindowStack;
+            if (windowStack == null)
+            {
+                return;
+            }
+            bool removed = windowStack.TryRemove(typeof(Dialog_Debug));
+            removed |= windowStack.TryRemove(typeof(Dialog_DevPalette));
+            removed |= windowStack.TryRemove(typeof(EditWindow_TweakValues));
+            removed |= windowStack.TryRemove(typeof(EditWindow_DebugInspector));
+            if (removed)
+            {
+                LogDebug("debug windows closed (commitment mode save).");
             }
         }
 
