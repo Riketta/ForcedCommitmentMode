@@ -21,8 +21,8 @@ namespace ForcedCommitmentMode
         public bool mentalBreakMajor = true;
         public bool mentalBreakExtreme = true;
         public bool prisonBreak = true;
-        public bool buildingDestroyed = true;
-        public bool fireStarted = true;
+        public bool buildingDestroyed = false;
+        public bool fireStarted = false;
 
         // Scope.
         public bool activeInNonCommitment = false;
@@ -45,8 +45,8 @@ namespace ForcedCommitmentMode
             Scribe_Values.Look(ref mentalBreakMajor, "mentalBreakMajor", true);
             Scribe_Values.Look(ref mentalBreakExtreme, "mentalBreakExtreme", true);
             Scribe_Values.Look(ref prisonBreak, "prisonBreak", true);
-            Scribe_Values.Look(ref buildingDestroyed, "buildingDestroyed", true);
-            Scribe_Values.Look(ref fireStarted, "fireStarted", true);
+            Scribe_Values.Look(ref buildingDestroyed, "buildingDestroyed", false);
+            Scribe_Values.Look(ref fireStarted, "fireStarted", false);
             Scribe_Values.Look(ref activeInNonCommitment, "activeInNonCommitment", false);
             Scribe_Values.Look(ref saveOnExit, "saveOnExit", true);
             Scribe_Values.Look(ref debugLogging, "debugLogging", false);

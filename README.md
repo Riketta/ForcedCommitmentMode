@@ -12,7 +12,9 @@ anti-cheat debug restrictions stay commitment-only).
 
 ## Autosave triggers
 
-Every trigger is optional and togglable in the mod settings; all are enabled by default.
+Every trigger is optional and togglable in the mod settings. High-impact triggers are
+on by default; fire started and building destroyed ship off to avoid frequent saves,
+and can be enabled in the settings.
 Triggers coalesce: if several fire in the same moment (a raid downs two colonists and
 kills a third), they share one save instead of stacking several.
 
@@ -29,9 +31,9 @@ kills a third), they share one save instead of stacking several.
 - **Prison break** - prisoners start a break.
 - **Mental break** - colonist breaks, split into minor, major and extreme toggles.
 - **Colony building destroyed** - a player-faction building destroyed by damage, fire or
-  collapse. Deconstructing it yourself does not count.
+  collapse. Deconstructing it yourself does not count. Off by default.
 - **Fire started** - a fire appears on one of your maps. Fires spread by creating more
-  fires, so this trigger is rate limited to one save per minute.
+  fires, so this trigger is rate limited to one save per minute. Off by default.
 - **Save on exit** - flushes the save when the game process closes directly (ALT+F4,
   killing the window). Quitting through the main menu already saves and is detected.
 
@@ -40,7 +42,7 @@ kills a third), they share one save instead of stacking several.
 - Each trigger is a small Harmony postfix on the exact moment the risky thing happens:
   `IncidentWorker.TryExecute` for incidents (filtered by category def, not by hardcoded
   incident names), `Pawn_HealthTracker.MakeDowned`, `Pawn.Kill`,
-  `MentalBreakWorker.TryStart`, `PrisonBreakUtility.StartPrisonBreak`,
+  `MentalStateHandler.TryStartMentalState`, `PrisonBreakUtility.StartPrisonBreak`,
   `ThingWithComps.Destroy` and `Fire.SpawnSetup`.
 - The save itself is the vanilla commitment autosave (`Autosaver.DoAutosave`), queued
   exactly like a vanilla autosave: in commitment mode it overwrites the single permadeath
@@ -86,7 +88,8 @@ never turns development mode on by itself.
 - **Also enforce autosaves in non-commitment saves** (off by default) - extends the event
   autosaves and the exit save to reload-anytime saves, writing to the normal rotating
   Autosave slots. The anti-cheat debug restrictions stay commitment-only.
-- One toggle per autosave trigger, as listed above (all default to on).
+- One toggle per autosave trigger, as listed above (all default to on, except fire
+  started and building destroyed, which default to off).
 - **Debug logging** - logs every trigger evaluation, coalesced trigger and save to the
   game log:
 

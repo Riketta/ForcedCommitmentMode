@@ -6,11 +6,11 @@ plain-text description).
 
 ```
 [h3]Forced Commitment Mode[/h3]
-The game autosaves the instant anything risky happens - a raid, a downed colonist, a mental break, a fire - so no outcome can ever be reloaded away. Closing or crashing the game can no longer dodge a save either.
+The game autosaves the instant anything risky happens - a raid, a downed colonist, a mental break - so no outcome can ever be reloaded away. Closing or crashing the game can no longer dodge a save either.
 
 Always active while the loaded save is a commitment mode save; in reload-anytime saves the mod does nothing unless the optional "also enforce autosaves in non-commitment saves" setting is turned on (event autosaves then write to the normal rotating Autosave slots; the anti-cheat debug restrictions stay commitment-only).
 
-[h3]Autosave triggers (all optional, all on by default)[/h3]
+[h3]Autosave triggers (all optional; on by default except the last two)[/h3]
 [list][*]Big threats - raids, sieges, mech clusters, ambushes and everything else the storyteller files under ThreatBig, including DLC and modded incidents.
 [*]Small threats - mad animals, blight, toxic fallout and the rest of ThreatSmall.
 [*]Infestations - deep drill infestations.
@@ -18,8 +18,8 @@ Always active while the loaded save is a commitment mode save; in reload-anytime
 [*]Pawn downed / pawn killed - colonists, prisoners, slaves, guests, quest pawns and colony animals; enemies and wild animals are ignored.
 [*]Prison break.
 [*]Mental breaks - separate toggles for minor, major and extreme.
-[*]Colony building destroyed by damage, fire or collapse (deconstruction does not count).
-[*]Fire started - rate limited to one save per minute while a fire spreads.
+[*]Colony building destroyed by damage, fire or collapse (deconstruction does not count) - off by default.
+[*]Fire started - rate limited to one save per minute while a fire spreads - off by default.
 [*]Save on exit - writes the save when the process is closed directly (ALT+F4 protection).[/list]
 
 [h3]Debug tools[/h3]
