@@ -13,8 +13,8 @@ anti-cheat debug restrictions stay commitment-only).
 ## Autosave triggers
 
 Every trigger is optional and togglable in the mod settings. High-impact triggers are
-on by default; fire started and building destroyed ship off to avoid frequent saves,
-and can be enabled in the settings.
+on by default; animal downed, animal killed, fire started and building destroyed ship
+off (frequent and often low-stakes) and can be enabled in the settings.
 Triggers coalesce: if several fire in the same moment (a raid downs two colonists and
 kills a third), they share one save instead of stacking several.
 
@@ -26,8 +26,11 @@ kills a third), they share one save instead of stacking several.
   (`DeepDrillInfestation` category).
 - **Disease outbreaks** - incidents of the `DiseaseHuman` category.
 - **Pawn downed** - a pawn the colony cares about is downed: colonists, prisoners, slaves,
-  guests, quest pawns and colony animals. Enemies and wild animals are ignored.
-- **Pawn killed** - the same set of pawns, at the moment they die.
+  guests and quest pawns. Enemies and wild animals are ignored.
+- **Animal downed** - a colony animal (pet, trained animal, livestock) is downed.
+  Off by default.
+- **Pawn killed** - the same set of pawns as pawn downed, at the moment they die.
+- **Animal killed** - a colony animal dies. Off by default.
 - **Prison break** - prisoners start a break.
 - **Mental break** - colonist breaks, split into minor, major and extreme toggles.
 - **Colony building destroyed** - a player-faction building destroyed by damage, fire or
@@ -88,8 +91,8 @@ never turns development mode on by itself.
 - **Also enforce autosaves in non-commitment saves** (off by default) - extends the event
   autosaves and the exit save to reload-anytime saves, writing to the normal rotating
   Autosave slots. The anti-cheat debug restrictions stay commitment-only.
-- One toggle per autosave trigger, as listed above (all default to on, except fire
-  started and building destroyed, which default to off).
+- One toggle per autosave trigger, as listed above (all default to on, except animal
+  downed, animal killed, fire started and building destroyed, which default to off).
 - **Debug logging** - logs every trigger evaluation, coalesced trigger and save to the
   game log:
 

@@ -16,7 +16,9 @@ namespace ForcedCommitmentMode
 
         // Direct state-change triggers.
         public bool pawnDowned = true;
+        public bool animalDowned = false;
         public bool pawnKilled = true;
+        public bool animalKilled = false;
         public bool mentalBreakMinor = true;
         public bool mentalBreakMajor = true;
         public bool mentalBreakExtreme = true;
@@ -40,7 +42,9 @@ namespace ForcedCommitmentMode
             Scribe_Values.Look(ref incidentsInfestation, "incidentsInfestation", true);
             Scribe_Values.Look(ref incidentsDisease, "incidentsDisease", true);
             Scribe_Values.Look(ref pawnDowned, "pawnDowned", true);
+            Scribe_Values.Look(ref animalDowned, "animalDowned", false);
             Scribe_Values.Look(ref pawnKilled, "pawnKilled", true);
+            Scribe_Values.Look(ref animalKilled, "animalKilled", false);
             Scribe_Values.Look(ref mentalBreakMinor, "mentalBreakMinor", true);
             Scribe_Values.Look(ref mentalBreakMajor, "mentalBreakMajor", true);
             Scribe_Values.Look(ref mentalBreakExtreme, "mentalBreakExtreme", true);
@@ -148,7 +152,9 @@ namespace ForcedCommitmentMode
             list.CheckboxLabeled("ForcedCommitmentMode.IncidentsInfestation".Translate(), ref Settings.incidentsInfestation, "ForcedCommitmentMode.IncidentsInfestationTip".Translate());
             list.CheckboxLabeled("ForcedCommitmentMode.IncidentsDisease".Translate(), ref Settings.incidentsDisease, "ForcedCommitmentMode.IncidentsDiseaseTip".Translate());
             list.CheckboxLabeled("ForcedCommitmentMode.PawnDowned".Translate(), ref Settings.pawnDowned, "ForcedCommitmentMode.PawnDownedTip".Translate());
+            list.CheckboxLabeled("ForcedCommitmentMode.AnimalDowned".Translate(), ref Settings.animalDowned, "ForcedCommitmentMode.AnimalDownedTip".Translate());
             list.CheckboxLabeled("ForcedCommitmentMode.PawnKilled".Translate(), ref Settings.pawnKilled, "ForcedCommitmentMode.PawnKilledTip".Translate());
+            list.CheckboxLabeled("ForcedCommitmentMode.AnimalKilled".Translate(), ref Settings.animalKilled, "ForcedCommitmentMode.AnimalKilledTip".Translate());
             list.CheckboxLabeled("ForcedCommitmentMode.PrisonBreak".Translate(), ref Settings.prisonBreak, "ForcedCommitmentMode.PrisonBreakTip".Translate());
             list.CheckboxLabeled("ForcedCommitmentMode.MentalBreakMinor".Translate(), ref Settings.mentalBreakMinor, "ForcedCommitmentMode.MentalBreakMinorTip".Translate());
             list.CheckboxLabeled("ForcedCommitmentMode.MentalBreakMajor".Translate(), ref Settings.mentalBreakMajor, "ForcedCommitmentMode.MentalBreakMajorTip".Translate());

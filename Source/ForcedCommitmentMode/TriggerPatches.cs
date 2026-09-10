@@ -64,14 +64,20 @@ namespace ForcedCommitmentMode
     }
 
     /// <summary>Single choke point where a pawn transitions to the downed state; every
-    /// damage, hediff and coma path ends here. Fires for downed colony animals too,
-    /// which PawnUtility.ShouldSendNotificationAbout already narrows to player pawns.</summary>
+    /// damage, hediff and coma path ends here. Pawn and animal downing have separate
+    /// toggles (animals off by default); both go through PawnUtility
+    /// .ShouldSendNotificationAbout, which narrows them to player pawns.</summary>
     [HarmonyPatch(typeof(Pawn_HealthTracker), "MakeDowned")]
     public static class Patch_Pawn_HealthTracker_MakeDowned
     {
         public static void Postfix(Pawn ___pawn)
         {
-            if (!CommitmentSaveUtility.ShouldEnforce || !ForcedCommitmentModeMod.Settings.pawnDowned)
+            if (!CommitmentSaveUtility.ShouldEnforce)
+            {
+                return;
+            }
+            ForcedCommitmentModeSettings settings = ForcedCommitmentModeMod.Settings;
+            if (___pawn.RaceProps.Animal ? !settings.animalDowned : !settings.pawnDowned)
             {
                 return;
             }
@@ -87,7 +93,12 @@ namespace ForcedCommitmentMode
     {
         public static void Postfix(Pawn __instance)
         {
-            if (!CommitmentSaveUtility.ShouldEnforce || !ForcedCommitmentModeMod.Settings.pawnKilled)
+            if (!CommitmentSaveUtility.ShouldEnforce)
+            {
+                return;
+            }
+            ForcedCommitmentModeSettings settings = ForcedCommitmentModeMod.Settings;
+            if (__instance.RaceProps.Animal ? !settings.animalKilled : !settings.pawnKilled)
             {
                 return;
             }

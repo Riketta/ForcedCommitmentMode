@@ -10,12 +10,15 @@ The game autosaves the instant anything risky happens - a raid, a downed colonis
 
 Always active while the loaded save is a commitment mode save; in reload-anytime saves the mod does nothing unless the optional "also enforce autosaves in non-commitment saves" setting is turned on (event autosaves then write to the normal rotating Autosave slots; the anti-cheat debug restrictions stay commitment-only).
 
-[h3]Autosave triggers (all optional; on by default except the last two)[/h3]
+[h3]Autosave triggers (all optional; on by default except animal downed, animal killed, building destroyed and fire started)[/h3]
 [list][*]Big threats - raids, sieges, mech clusters, ambushes and everything else the storyteller files under ThreatBig, including DLC and modded incidents.
 [*]Small threats - mad animals, blight, toxic fallout and the rest of ThreatSmall.
 [*]Infestations - deep drill infestations.
 [*]Disease outbreaks.
-[*]Pawn downed / pawn killed - colonists, prisoners, slaves, guests, quest pawns and colony animals; enemies and wild animals are ignored.
+[*]Pawn downed - colonists, prisoners, slaves, guests and quest pawns; enemies and wild animals are ignored.
+[*]Animal downed - pets, trained animals and livestock - off by default.
+[*]Pawn killed - the same pawns as pawn downed, at the moment they die.
+[*]Animal killed - pets, trained animals and livestock - off by default.
 [*]Prison break.
 [*]Mental breaks - separate toggles for minor, major and extreme.
 [*]Colony building destroyed by damage, fire or collapse (deconstruction does not count) - off by default.

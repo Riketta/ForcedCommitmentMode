@@ -7,7 +7,7 @@
   <supportedVersions>
     <li>1.6</li>
   </supportedVersions>
-  <description>Enforces a true commitment mode playstyle: the game autosaves the instant anything risky happens - raids, downed or killed pawns, mental breaks and more - so no outcome can be reloaded away, and closing or crashing the game can no longer dodge a save. Every trigger can be toggled in the mod settings; all are on by default except fire started and building destroyed.
+  <description>Enforces a true commitment mode playstyle: the game autosaves the instant anything risky happens - raids, downed or killed pawns, mental breaks and more - so no outcome can be reloaded away, and closing or crashing the game can no longer dodge a save. Every trigger can be toggled in the mod settings; all are on by default except animal downed, animal killed, fire started and building destroyed.
 
 While a commitment mode save is running, all debug buttons except the log window are hidden and god mode is switched off. Other saves stay untouched unless the optional non-commitment setting is enabled, which adds the event autosaves there as well.
 
